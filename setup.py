@@ -16,7 +16,7 @@ setup(
     author_email='ew2789@gmail.com',
     packages=find_packages(),
     include_package_data=True,
-    url='https://github.com/botswana-harvard/edc-device',
+    url='https://github.com/clinicedc/edc-device',
     license='GPL license, see LICENSE',
     description='a simple class to return info on a  device used by edc-sync and edc-dispatch',
     long_description=README,
