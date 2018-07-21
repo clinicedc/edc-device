@@ -1,6 +1,8 @@
-# edc-device
+|pypi| |travis| |coverage|
 
-[![Build Status](https://travis-ci.org/clinicedc/edc-device.svg?branch=develop)](https://travis-ci.org/clinicedc/edc-device) [![Coverage Status](https://coveralls.io/repos/github/clinicedc/edc-device/badge.svg?branch=develop)](https://coveralls.io/github/clinicedc/edc-device?branch=develop)
+
+edc-device
+----------
 
 `edc-device` provides device roles unique device IDs for hosts and clients where the hostname may not be reliable. Hosts can be group as servers, clients, node_servers and some of their functionality limited according to this role.
 
@@ -193,4 +195,14 @@ For example:
 
 
 
-        
+
+
+.. |pypi| image:: https://img.shields.io/pypi/v/edc-device.svg
+    :target: https://pypi.python.org/pypi/edc-device
+    
+.. |travis| image:: https://travis-ci.org/clinicedc/edc-device.svg?branch=develop
+    :target: https://travis-ci.org/clinicedc/edc-device
+    
+.. |coverage| image:: https://coveralls.io/repos/github/clinicedc/edc-device/badge.svg?branch=develop
+    :target: https://coveralls.io/github/clinicedc/edc-device?branch=develop
+
