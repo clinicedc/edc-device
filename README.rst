@@ -1,15 +1,19 @@
-# edc-device
+|pypi| |travis| |coverage|
 
-[![Build Status](https://travis-ci.org/clinicedc/edc-device.svg?branch=develop)](https://travis-ci.org/clinicedc/edc-device) [![Coverage Status](https://coveralls.io/repos/github/clinicedc/edc-device/badge.svg?branch=develop)](https://coveralls.io/github/clinicedc/edc-device?branch=develop)
 
-`edc-device` provides device roles unique device IDs for hosts and clients where the hostname may not be reliable. Hosts can be group as servers, clients, node_servers and some of their functionality limited according to this role.
+edc-device
+----------
+
+``edc-device`` provides device roles unique device IDs for hosts and clients where the hostname may not be reliable. Hosts can be group as servers, clients, node_servers and some of their functionality limited according to this role.
 
 A unique device ID is used to seed unique subject and sample identifiers. Uniqueness is evaluated during deployment.
 
-Device information is set in and read from `edc_device.apps.AppConfig`.
+Device information is set in and read from ``edc_device.apps.AppConfig``.
 
-You should subclass into your projects `apps.py` like this, for example:
+You should subclass into your projects ``apps.py`` like this, for example:
 
+.. code-block:: python
+    
     from edc_device.apps import AppConfig as EdcDeviceAppConfigParent
     
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
@@ -18,16 +22,20 @@ You should subclass into your projects `apps.py` like this, for example:
         device_permissions = DevicePermissions(
             plot_add, plot_change, ...)
 
-... and then in your settings:
+and then in your settings:
 
+.. code-block:: python
+    
     INSTALLED_APPS = [
         ...
         my_app.apps.EdcDeviceAppConfig,
         myapp.apps.AppConfig',
     ]
 
-Include in your `urls.py`:
+Include in your ``urls.py``:
 
+.. code-block:: python
+    
     urlpatterns = [
         ...
         path('edc_device/', include('edc_device.urls')),
@@ -36,14 +44,19 @@ Include in your `urls.py`:
     
 To get to the Edc Device home page, reverse the url like this:
 
+.. code-block:: python
+    
     reverse('edc_device:home_url')
 
 
-## Usage
+Usage
+=====
     
 
-A `client` might look like this:
+A ``client`` might look like this:
 
+.. code-block:: python
+    
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
         device_id = '18'
     	node_server_id_list = [97, 98, 99]
@@ -60,6 +73,8 @@ A `client` might look like this:
 
 A node server server might look like this:
 
+.. code-block:: python
+    
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
         device_id = '98'
         node_server_id_list = [97, 98, 99]
@@ -76,6 +91,8 @@ A node server server might look like this:
 
 A middleman server might look like this:
 
+.. code-block:: python
+    
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
         device_id = '95'
         node_server_id_list = [97, 98, 99]
@@ -92,6 +109,8 @@ A middleman server might look like this:
 
 The central server might look like this:
 
+.. code-block:: python
+    
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
         device_id = '99'
         node_server_id_list = [97, 98, 99]
@@ -107,35 +126,44 @@ The central server might look like this:
     'CentralServer'
 
 
-See also `edc_sync`.
+See also ``edc_sync``.
 
 
-## Device Permissions by Model
+Device Permissions by Model
+===========================
 
 You can use the device role, or the device ID, to limit ADD/CHANGE permissions on a model.
 
-`edc-device` AppConfig maintains a collection of `DeviceAddPermission` and `DeviceChangePermission` instances that are inspected in the `save` method of a model using the `DeviceModelMixin`.
+``edc-device`` AppConfig maintains a collection of ``DeviceAddPermission`` and ``DeviceChangePermission`` instances that are inspected in the ``save`` method of a model using the ``DeviceModelMixin``.
 
-To declare a `DeviceAddPermission` object:
+To declare a ``DeviceAddPermission`` object:
 
+.. code-block:: python
+    
     test_model_add = DeviceAddPermission(
         model='my_app.mymodel, device_roles=[NODE_SERVER, CENTRAL_SERVER])
 
-To declare a `DeviceChangePermission` object:
+To declare a ``DeviceChangePermission`` object:
 
+.. code-block:: python
+    
     test_model_change = DeviceChangePermission(
         model='my_app.mymodel, device_roles=[CLIENT])
 
-This means that if `app_config.device_role` is anything other than `NODE_SERVER` or `CENTRAL_SERVER`, the save method will raise a `DevicePermissionsAddError`.
+This means that if ``app_config.device_role`` is anything other than ``NODE_SERVER`` or ``CENTRAL_SERVER``, the save method will raise a ``DevicePermissionsAddError``.
 
-To register the instances with `edc_device.apps.AppConfig.device_permissions`:
+To register the instances with ``edc_device.apps.AppConfig.device_permissions``:
 
+.. code-block:: python
+    
     device_permissions = DevicePermissions(test_model_add, test_model_change)
 
-This means that if `app_config.device_role` is anything other than `CLIENT`, the save method will raise a `DevicePermissionsChangeError`.
+This means that if ``app_config.device_role`` is anything other than ``CLIENT``, the save method will raise a ``DevicePermissionsChangeError``.
 
 On boot up you should see:
 
+.. code-block:: python
+    
     Loading Edc Device ...
       * device id is '10'.
       * device role is 'Client'.
@@ -144,37 +172,46 @@ On boot up you should see:
         - edc_device.testmodel CHANGE Client
     Done loading Edc Device.
 
-Models declared with the `EdcDeviceModelMixin` check the device permissions collection on save. Note the model mixin is already declared with `BaseUuidModel`.
+Models declared with the ``EdcDeviceModelMixin`` check the device permissions collection on save. Note the model mixin is already declared with ``BaseUuidModel``.
 
+.. code-block:: python
+    
     from edc_base.model_mixins import BaseUuidModel
 
     class TestModel(BaseUuidModel):
         pass
         
 
-### Declaring device permissions directly on model `Meta` class:
+Declaring device permissions directly on model ``Meta`` class:
+============================================================
 
-You can declare device permissions on `Meta.device_permissions` in the same way as above.
+You can declare device permissions on ``Meta.device_permissions`` in the same way as above.
 
+.. code-block:: python
+    
     [...]
     class Meta(DeviceModelMixin.Meta):
         device_permissions = DevicePermissions(...)
         
-Both `Meta` and `AppConfig` device permissions will be called, where the `Meta` class object will be called first.
+Both ``Meta`` and ``AppConfig`` device permissions will be called, where the ``Meta`` class object will be called first.
 
-### Disable device permissions by model instance:
+Disable device permissions by model instance:
+=============================================
 
-You can disable device permissions _per model instance_ by setting `check_device_permissions` to `False`
+You can disable device permissions _per model instance_ by setting ``check_device_permissions`` to ``False``
 
 
-### Customizing Device Permissions
+Customizing Device Permissions
+==============================
 
-The ADD and CHANGE device permission objects by default inspect the model's `id`. If `obj.id` is `None`, it as an ADD model operation; If `obj.id` is not `None`, it is a CHANGE model operation.
+The ADD and CHANGE device permission objects by default inspect the model's ``id``. If ``obj.id`` is ``None``, it as an ADD model operation; If ``obj.id`` is not ``None``, it is a CHANGE model operation.
 
-You can change this by overriding the `model_operation` method. The `model_operation` must return `None` or some value, such as `self.label`.
+You can change this by overriding the ``model_operation`` method. The ``model_operation`` must return ``None`` or some value, such as ``self.label``.
 
 For example:
 
+.. code-block:: python
+    
     # default for DeviceAddPermission
     label = 'ADD'
     
@@ -193,4 +230,12 @@ For example:
 
 
 
-        
+.. |pypi| image:: https://img.shields.io/pypi/v/edc-device.svg
+    :target: https://pypi.python.org/pypi/edc-device
+    
+.. |travis| image:: https://travis-ci.org/clinicedc/edc-device.svg?branch=develop
+    :target: https://travis-ci.org/clinicedc/edc-device
+    
+.. |coverage| image:: https://coveralls.io/repos/github/clinicedc/edc-device/badge.svg?branch=develop
+    :target: https://coveralls.io/github/clinicedc/edc-device?branch=develop
+
