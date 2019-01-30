@@ -126,7 +126,7 @@ The central server might look like this:
     'CentralServer'
 
 
-See also ``edc_sync``.
+See also ``django-collect-offline``.
 
 
 Device Permissions by Model
