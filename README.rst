@@ -176,7 +176,7 @@ Models declared with the ``EdcDeviceModelMixin`` check the device permissions co
 
 .. code-block:: python
     
-    from edc_base.model_mixins import BaseUuidModel
+    from edc_model.models import BaseUuidModel
 
     class TestModel(BaseUuidModel):
         pass
