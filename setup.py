@@ -33,8 +33,11 @@ setup(
     zip_safe=False,
     keywords='django contenttype',
     install_requires=[
-        'django-ipware',
-        'edc_base'],
+        "django-ipware",
+        "django_audit_fields",
+        "edc-navbar",
+        "edc_dashboard",
+    ],
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
@@ -42,7 +45,6 @@ setup(
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',

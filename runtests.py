@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import django
 import logging
-import os
 import sys
 
 from django.conf import settings
@@ -15,11 +14,8 @@ base_dir = dirname(abspath(__file__))
 
 DEFAULT_SETTINGS = DefaultTestSettings(
     calling_file=__file__,
-    template_dirs=[os.path.join(
-        base_dir, app_name, "tests", "templates")],
     APP_NAME=app_name,
     BASE_DIR=base_dir,
-    ETC_DIR=os.path.join(base_dir, app_name, "tests", "etc"),
     INSTALLED_APPS=[
         'django.contrib.admin',
         'django.contrib.auth',
@@ -29,11 +25,14 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         'django.contrib.staticfiles',
         'django.contrib.sites',
         'django_revision.apps.AppConfig',
+        'edc_auth.apps.AppConfig',
+        'edc_notification.apps.AppConfig',
         'edc_navbar.apps.AppConfig',
-        'edc_base.apps.AppConfig',
+        'edc_dashboard.apps.AppConfig',
         'edc_device.apps.AppConfig',
     ],
     add_dashboard_middleware=True,
+    use_test_urls=True,
 ).settings
 
 
