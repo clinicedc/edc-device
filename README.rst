@@ -183,7 +183,7 @@ Models declared with the ``EdcDeviceModelMixin`` check the device permissions co
         
 
 Declaring device permissions directly on model ``Meta`` class:
-============================================================
+==============================================================
 
 You can declare device permissions on ``Meta.device_permissions`` in the same way as above.
 
