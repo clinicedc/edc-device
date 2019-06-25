@@ -198,7 +198,7 @@ Both ``Meta`` and ``AppConfig`` device permissions will be called, where the ``M
 Disable device permissions by model instance:
 =============================================
 
-You can disable device permissions _per model instance_ by setting ``check_device_permissions`` to ``False``
+You can disable device permissions ``per model instance`` by setting ``check_device_permissions`` to ``False``
 
 
 Customizing Device Permissions
