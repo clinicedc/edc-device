@@ -233,8 +233,8 @@ For example:
 .. |pypi| image:: https://img.shields.io/pypi/v/edc-device.svg
     :target: https://pypi.python.org/pypi/edc-device
     
-.. |travis| image:: https://travis-ci.org/clinicedc/edc-device.svg?branch=develop
-    :target: https://travis-ci.org/clinicedc/edc-device
+.. |travis| image:: https://travis-ci.com/clinicedc/edc-device.svg?branch=develop
+    :target: https://travis-ci.com/clinicedc/edc-device
     
 .. |coverage| image:: https://coveralls.io/repos/github/clinicedc/edc-device/badge.svg?branch=develop
     :target: https://coveralls.io/github/clinicedc/edc-device?branch=develop
