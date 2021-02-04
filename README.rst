@@ -1,4 +1,4 @@
-|pypi| |travis| |coverage|
+|pypi| |actions| |coverage|
 
 
 edc-device
@@ -13,9 +13,9 @@ Device information is set in and read from ``edc_device.apps.AppConfig``.
 You should subclass into your projects ``apps.py`` like this, for example:
 
 .. code-block:: python
-    
+
     from edc_device.apps import AppConfig as EdcDeviceAppConfigParent
-    
+
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
         device_id = '32'
         device_role = CLIENT
@@ -25,7 +25,7 @@ You should subclass into your projects ``apps.py`` like this, for example:
 and then in your settings:
 
 .. code-block:: python
-    
+
     INSTALLED_APPS = [
         ...
         my_app.apps.EdcDeviceAppConfig,
@@ -35,46 +35,46 @@ and then in your settings:
 Include in your ``urls.py``:
 
 .. code-block:: python
-    
+
     urlpatterns = [
         ...
         path('edc_device/', include('edc_device.urls')),
         ...
     ]
-    
+
 To get to the Edc Device home page, reverse the url like this:
 
 .. code-block:: python
-    
+
     reverse('edc_device:home_url')
 
 
 Usage
 =====
-    
+
 
 A ``client`` might look like this:
 
 .. code-block:: python
-    
+
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
         device_id = '18'
-    	node_server_id_list = [97, 98, 99]
-    	middleman_id_list = [95, 96]
+        node_server_id_list = [97, 98, 99]
+        middleman_id_list = [95, 96]
 
-	>>> from django.apps import apps as django_apps
-	>>> app_config = django_apps.get_app_config('edc_device')
-	>>> app_config.device_id
-	'18'
-	>>> app_config.is_client
-	True
+    >>> from django.apps import apps as django_apps
+    >>> app_config = django_apps.get_app_config('edc_device')
+    >>> app_config.device_id
+    '18'
+    >>> app_config.is_client
+    True
     >>> app_config.device_role
     'Client'
 
 A node server server might look like this:
 
 .. code-block:: python
-    
+
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
         device_id = '98'
         node_server_id_list = [97, 98, 99]
@@ -92,7 +92,7 @@ A node server server might look like this:
 A middleman server might look like this:
 
 .. code-block:: python
-    
+
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
         device_id = '95'
         node_server_id_list = [97, 98, 99]
@@ -110,7 +110,7 @@ A middleman server might look like this:
 The central server might look like this:
 
 .. code-block:: python
-    
+
     class EdcDeviceAppConfig(EdcDeviceAppConfigParent):
         device_id = '99'
         node_server_id_list = [97, 98, 99]
@@ -139,14 +139,14 @@ You can use the device role, or the device ID, to limit ADD/CHANGE permissions o
 To declare a ``DeviceAddPermission`` object:
 
 .. code-block:: python
-    
+
     test_model_add = DeviceAddPermission(
         model='my_app.mymodel, device_roles=[NODE_SERVER, CENTRAL_SERVER])
 
 To declare a ``DeviceChangePermission`` object:
 
 .. code-block:: python
-    
+
     test_model_change = DeviceChangePermission(
         model='my_app.mymodel, device_roles=[CLIENT])
 
@@ -155,7 +155,7 @@ This means that if ``app_config.device_role`` is anything other than ``NODE_SERV
 To register the instances with ``edc_device.apps.AppConfig.device_permissions``:
 
 .. code-block:: python
-    
+
     device_permissions = DevicePermissions(test_model_add, test_model_change)
 
 This means that if ``app_config.device_role`` is anything other than ``CLIENT``, the save method will raise a ``DevicePermissionsChangeError``.
@@ -163,7 +163,7 @@ This means that if ``app_config.device_role`` is anything other than ``CLIENT``,
 On boot up you should see:
 
 .. code-block:: python
-    
+
     Loading Edc Device ...
       * device id is '10'.
       * device role is 'Client'.
@@ -175,12 +175,12 @@ On boot up you should see:
 Models declared with the ``EdcDeviceModelMixin`` check the device permissions collection on save. Note the model mixin is already declared with ``BaseUuidModel``.
 
 .. code-block:: python
-    
+
     from edc_model.models import BaseUuidModel
 
     class TestModel(BaseUuidModel):
         pass
-        
+
 
 Declaring device permissions directly on model ``Meta`` class:
 ==============================================================
@@ -188,11 +188,11 @@ Declaring device permissions directly on model ``Meta`` class:
 You can declare device permissions on ``Meta.device_permissions`` in the same way as above.
 
 .. code-block:: python
-    
+
     [...]
     class Meta(DeviceModelMixin.Meta):
         device_permissions = DevicePermissions(...)
-        
+
 Both ``Meta`` and ``AppConfig`` device permissions will be called, where the ``Meta`` class object will be called first.
 
 Disable device permissions by model instance:
@@ -211,10 +211,10 @@ You can change this by overriding the ``model_operation`` method. The ``model_op
 For example:
 
 .. code-block:: python
-    
+
     # default for DeviceAddPermission
     label = 'ADD'
-    
+
     def model_operation(self, model_obj=None, **kwargs):
         if not model_obj.id:
             return self.label
@@ -232,10 +232,10 @@ For example:
 
 .. |pypi| image:: https://img.shields.io/pypi/v/edc-device.svg
     :target: https://pypi.python.org/pypi/edc-device
-    
-.. |travis| image:: https://travis-ci.com/clinicedc/edc-device.svg?branch=develop
-    :target: https://travis-ci.com/clinicedc/edc-device
-    
+
+.. |actions| image:: https://github.com/clinicedc/edc-device/workflows/build/badge.svg?branch=develop
+  :target: https://github.com/clinicedc/edc-device/actions?query=workflow:build
+
 .. |coverage| image:: https://coveralls.io/repos/github/clinicedc/edc-device/badge.svg?branch=develop
     :target: https://coveralls.io/github/clinicedc/edc-device?branch=develop
 

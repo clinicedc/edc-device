@@ -1,15 +1,14 @@
 #!/usr/bin/env python
+import logging
 import os
+import sys
+from os.path import abspath, dirname
 
 import django
-import logging
-import sys
-
 from django.conf import settings
 from django.test.runner import DiscoverRunner
 from edc_constants.constants import IGNORE
 from edc_test_utils import DefaultTestSettings
-from os.path import abspath, dirname
 
 app_name = "edc_device"
 base_dir = dirname(abspath(__file__))
