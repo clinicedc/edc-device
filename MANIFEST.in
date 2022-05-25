@@ -2,4 +2,3 @@ include AUTHORS CHANGES LICENSE VERSION
 include MANIFEST.in
 include *.rst
 recursive-include edc_device/templates *
-recursive-include edc_device/static *
