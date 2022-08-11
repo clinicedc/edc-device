@@ -30,8 +30,6 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         "django.contrib.sites",
         "django_crypto_fields.apps.AppConfig",
         "django_revision.apps.AppConfig",
-        "django_celery_results",
-        "django_celery_beat",
         "multisite",
         "edc_appointment.apps.AppConfig",
         "edc_action_item.apps.AppConfig",
