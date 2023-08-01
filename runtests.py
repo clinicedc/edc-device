@@ -20,6 +20,7 @@ DEFAULT_SETTINGS = DefaultTestSettings(
     BASE_DIR=base_dir,
     ETC_DIR=os.path.join(base_dir, app_name, "tests", "etc"),
     EDC_NAVBAR_VERIFY_ON_LOAD=IGNORE,
+    SUBJECT_VISIT_MODEL="edc_visit_tracking.subjectvisit",
     INSTALLED_APPS=[
         "django.contrib.admin",
         "django.contrib.auth",
