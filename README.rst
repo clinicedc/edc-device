@@ -233,8 +233,8 @@ For example:
 .. |pypi| image:: https://img.shields.io/pypi/v/edc-device.svg
     :target: https://pypi.python.org/pypi/edc-device
 
-.. |actions| image:: https://github.com/clinicedc/edc-device/workflows/build/badge.svg?branch=develop
-  :target: https://github.com/clinicedc/edc-device/actions?query=workflow:build
+.. |actions| image:: https://github.com/clinicedc/edc-device/actions/workflows/build.yml/badge.svg
+  :target: https://github.com/clinicedc/edc-device/actions/workflows/build.yml
 
 .. |coverage| image:: https://coveralls.io/repos/github/clinicedc/edc-device/badge.svg?branch=develop
     :target: https://coveralls.io/github/clinicedc/edc-device?branch=develop
