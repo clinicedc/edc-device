@@ -7,7 +7,6 @@ from os.path import abspath, dirname
 import django
 from django.conf import settings
 from django.test.runner import DiscoverRunner
-from edc_constants.constants import IGNORE
 from edc_test_utils import DefaultTestSettings
 
 app_name = "edc_device"
@@ -19,7 +18,11 @@ DEFAULT_SETTINGS = DefaultTestSettings(
     APP_NAME=app_name,
     BASE_DIR=base_dir,
     ETC_DIR=os.path.join(base_dir, app_name, "tests", "etc"),
-    EDC_NAVBAR_VERIFY_ON_LOAD=IGNORE,
+    SILENCED_SYSTEM_CHECKS=[
+        "sites.E101",
+        "edc_navbar.E002",
+        "edc_navbar.E003",
+    ],
     SUBJECT_VISIT_MODEL="edc_visit_tracking.subjectvisit",
     EDC_SITES_REGISTER_DEFAULT=True,
     INSTALLED_APPS=[
@@ -64,6 +67,7 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         "edc_subject_dashboard.apps.AppConfig",
         "adverse_event_app.apps.AppConfig",
         "edc_dashboard.apps.AppConfig",
+        "edc_appconfig.apps.AppConfig",
     ],
     add_dashboard_middleware=True,
     use_test_urls=True,
