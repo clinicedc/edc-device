@@ -238,4 +238,3 @@ For example:
 
 .. |coverage| image:: https://coveralls.io/repos/github/clinicedc/edc-device/badge.svg?branch=develop
     :target: https://coveralls.io/github/clinicedc/edc-device?branch=develop
-
