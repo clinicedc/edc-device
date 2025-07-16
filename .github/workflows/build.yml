@@ -60,14 +60,14 @@ jobs:
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
           key:
-            ${{ matrix.python-version }}-v1-${{ hashFiles('**/setup.py') }}-${{ hashFiles('**/tox.ini') }}
+            ${{ matrix.python-version }}-v1-${{ hashFiles('**/setup.py') }}-${{ hashFiles('**/pyproject.toml') }}
           restore-keys: |
             ${{ matrix.python-version }}-v1-
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r https://raw.githubusercontent.com/clinicedc/edc/develop/requirements.tests/tox.txt
+          python -m pip install tox tox-gh-actions coverage
 
       - name: Tox tests
         run: |
